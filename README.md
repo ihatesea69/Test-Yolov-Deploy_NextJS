@@ -1,65 +1,90 @@
-# Ứng Dụng Demo Nhận Diện Đối Tượng với YOLOv
+# YOLOv8 Nhận Diện Đối Tượng
 
-Đây là một ứng dụng demo nhận diện người và đồ vật sử dụng YOLOv và NextJS. Ứng dụng này cho phép người dùng tải lên ảnh hoặc video và xử lý nó thông qua YOLOv để nhận diện đối tượng.
+Ứng dụng demo nhận diện đối tượng sử dụng YOLOv8 và COCO-SSD với Next.js.
 
 ## Tính năng
 
-- Tải lên ảnh và video
-- Nhận diện đối tượng trong ảnh sử dụng YOLOv8n
-- Hiển thị kết quả nhận diện với bounding box và nhãn
-- Giao diện người dùng thân thiện và đáp ứng
+- Nhận diện đối tượng với YOLOv8 (ONNX)
+- Dự phòng với COCO-SSD (TensorFlow.js)
+- Tải lên ảnh qua kéo-thả
+- Giao diện người dùng thân thiện
+- Hiển thị kết quả nhận diện với các khung bao quanh và nhãn đối tượng
 
 ## Công nghệ sử dụng
 
-- Next.js 14
-- React
-- TensorFlow.js
+- Next.js (React Framework)
 - ONNX Runtime Web
-- Tailwind CSS
+- TensorFlow.js
+- React Dropzone
 
-## Cài đặt model
+## Hướng dẫn cài đặt và chạy local
 
-Để ứng dụng hoạt động, bạn cần tải xuống model YOLOv8n:
-
-1. Tạo thư mục `public/models` nếu chưa tồn tại
-2. Tải xuống file YOLOv8n ONNX từ [Ultralytics](https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.onnx) và đặt vào thư mục `public/models`
-3. Tải xuống các file WASM của ONNX Runtime từ [ONNX Runtime Web](https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/) và đặt vào thư mục `public/models`:
-   - ort-wasm.wasm
-   - ort-wasm-simd.wasm
-   - ort-wasm-threaded.wasm
-   - ort-wasm-simd-threaded.wasm
-
-## Hướng dẫn sử dụng
-
-### Cài đặt
-
+1. Clone repository:
 ```bash
-# Sao chép repository
-git clone https://github.com/your-username/yolov-detection-demo.git
-cd yolov-detection-demo
+git clone [url-repository]
+cd yolov-deploy
+```
 
-# Cài đặt các phụ thuộc
+2. Cài đặt các gói phụ thuộc:
+```bash
 npm install
+```
 
-# Khởi động ứng dụng ở chế độ development
+3. Tải các models:
+```bash
+npm run download-models
+```
+
+4. Khởi chạy ứng dụng:
+```bash
 npm run dev
 ```
 
-### Sử dụng ứng dụng
+5. Truy cập ứng dụng tại: http://localhost:3000
 
-1. Mở trình duyệt và truy cập vào `http://localhost:3000`
-2. Nhấp vào khu vực tải lên hoặc kéo và thả tệp ảnh
-3. Đợi ứng dụng xử lý ảnh và hiển thị kết quả nhận diện
+## Triển khai lên Vercel
 
-## Deploy lên Vercel
+### 1. Chuẩn bị Repository
 
-Ứng dụng này được thiết kế để dễ dàng triển khai lên Vercel:
+- Đảm bảo code đã được đẩy lên GitHub
 
-1. Đăng ký tài khoản [Vercel](https://vercel.com) nếu bạn chưa có
-2. Kết nối repository của bạn với Vercel
-3. Cấu hình các biến môi trường nếu cần
-4. Deploy!
+### 2. Tạo tài khoản Vercel
 
-## Giấy phép
+1. Truy cập [vercel.com](https://vercel.com)
+2. Đăng ký tài khoản bằng email hoặc đăng nhập bằng GitHub
+3. Xác nhận email nếu cần
+
+### 3. Triển khai
+
+1. Từ dashboard Vercel, nhấn **Add New** > **Project**
+2. Kết nối với GitHub và chọn repository
+3. Cấu hình triển khai:
+   - **Framework Preset**: Next.js
+   - **Build Command**: `npm run build` (mặc định)
+   - **Install Command**: `npm install` (mặc định)
+   - **Output Directory**: `.next` (mặc định)
+
+4. Cấu hình Biến Môi Trường (nếu cần)
+
+5. Nhấn **Deploy**
+
+### 4. Xác minh triển khai
+
+- Kiểm tra logs để đảm bảo quá trình xây dựng thành công
+- Truy cập URL Vercel được cung cấp
+- Thử tải lên ảnh để kiểm tra chức năng nhận diện
+
+## Lưu ý khi triển khai
+
+- File model YOLOv8n.onnx đã được tạo sẵn (dummy file) để phát triển UI
+- Khi triển khai production, cần đảm bảo có model thực tế
+- Có thể tải model thực tế từ Hugging Face hoặc Ultralytics
+- Các file WASM của ONNX Runtime đã được tải sẵn trong `/public/models`
+
+## License
 
 MIT
+
+## Liên hệ
+
+Nếu có bất kỳ câu hỏi hoặc góp ý, vui lòng tạo issue trong repository.

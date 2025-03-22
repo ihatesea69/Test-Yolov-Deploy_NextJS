@@ -1,0 +1,9 @@
+.git
+*.log
+.github
+node_modules
+.next
+.vscode
+!.next/standalone
+!.next/static
+README.md 
